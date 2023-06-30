@@ -1,5 +1,8 @@
 import { Controller, Inject, Get, Param, Patch, Body, Delete } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
+import { ChangePasswordDto } from 'src/dto/users/update-password.dto';
+import { UpdateUserRoleDto } from 'src/dto/users/update-role.dto';
+import { UpdateUserDto } from 'src/dto/users/update-user.dto';
 
 @Controller('users')
 export class UserController {
@@ -16,17 +19,17 @@ export class UserController {
     }
 
     @Patch('password')
-    updatePassword(@Body() body) {
+    updatePassword(@Body() body: ChangePasswordDto) {
         return this.usersServiceClient.send('updatePassword', body);
     }
 
     @Patch(':id/role')
-    updateRole(@Param('id') id: string, @Body() body) {
+    updateRole(@Param('id') id: string, @Body() body: UpdateUserRoleDto) {
         return this.usersServiceClient.send('updateRole', { id, role: body.role });
     }
 
     @Patch(':id')
-    updateProfile(@Body() body) {
+    updateProfile(@Body() body: UpdateUserDto) {
         return this.usersServiceClient.send('updateProfile', body);
     }
 
