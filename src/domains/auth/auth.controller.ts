@@ -19,7 +19,9 @@ export class AuthController {
 
     @Get('me')
     getOneUserByToken(@Headers('Authorization') token: string) {
+        console.log(token)
         return this.authService.send('me', {
+            'a': 'coucou',
             token
         });
     }
