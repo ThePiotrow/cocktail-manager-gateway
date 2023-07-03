@@ -5,22 +5,24 @@ import { RegisterDto } from 'src/dto/users/register.dto';
 
 @Controller('auth')
 export class AuthController {
-    constructor(@Inject('AUTH_SERVICE') private readonly authService: ClientProxy) { }
+  constructor(
+    @Inject('AUTH_SERVICE') private readonly authService: ClientProxy,
+  ) { }
 
-    @Post('register')
-    register(@Body() registerDto: RegisterDto) {
-        return this.authService.send('register', registerDto);
-    }
+  @Post('register')
+  register(@Body() registerDto: RegisterDto) {
+    return this.authService.send('register', registerDto);
+  }
 
-    @Post('login')
-    login(@Body() loginDto: LoginDto) {
-        return this.authService.send('login', loginDto);
-    }
+  @Post('login')
+  login(@Body() loginDto: LoginDto) {
+    return this.authService.send('login', loginDto);
+  }
 
-    @Get('me')
-    getOneUserByToken(@Headers('Authorization') token: string) {
-        return this.authService.send('me', {
-            token
-        });
-    }
+  @Get('me')
+  getOneUserByToken(@Headers('Authorization') token: string) {
+    return this.authService.send('me', {
+      token
+    });
+  }
 }
