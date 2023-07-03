@@ -7,15 +7,24 @@ import { RegisterDto } from 'src/dto/users/register.dto';
 export class AuthController {
   constructor(
     @Inject('AUTH_SERVICE') private readonly authService: ClientProxy,
+<<<<<<< Updated upstream
   ) { }
 
   @Post('register')
   register(@Body() registerDto: RegisterDto) {
     return this.authService.send('register', registerDto);
+=======
+  ) {}
+
+  @Post('register')
+  register(@Body() registerDto: RegisterDto) {
+    return this.authService.send('registerUser', registerDto);
+>>>>>>> Stashed changes
   }
 
   @Post('login')
   login(@Body() loginDto: LoginDto) {
+<<<<<<< Updated upstream
     return this.authService.send('login', loginDto);
   }
 
@@ -24,5 +33,8 @@ export class AuthController {
     return this.authService.send('me', {
       token
     });
+=======
+    return this.authService.send('loginUser', loginDto);
+>>>>>>> Stashed changes
   }
 }

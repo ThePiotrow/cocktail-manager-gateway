@@ -1,0 +1,4 @@
+apiVersion: v2
+name: cocktail-manager-gateway
+description: A Helm chart for the gateway microservice
+version: 1.0.0
