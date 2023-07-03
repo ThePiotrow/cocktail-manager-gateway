@@ -1,4 +1,5 @@
-import { Controller, Inject, Get, Param, Patch, Body, Delete } from '@nestjs/common';
+import { Controller, Inject, Get, Param, Patch, Body, Delete, Headers } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
 import { ClientProxy } from '@nestjs/microservices';
 import { ChangePasswordDto } from 'src/dto/users/update-password.dto';
 import { UpdateUserRoleDto } from 'src/dto/users/update-role.dto';
@@ -6,11 +7,17 @@ import { UpdateUserDto } from 'src/dto/users/update-user.dto';
 
 @Controller('users')
 export class UserController {
-    constructor(@Inject('AUTH_SERVICE') private readonly usersServiceClient: ClientProxy) { }
+    constructor(
+        @Inject('AUTH_SERVICE') private readonly usersServiceClient: ClientProxy,
+        private jwtService: JwtService
+    ) { }
 
     @Get()
-    getAllUsers() {
-        return this.usersServiceClient.send('getAllUsers', {});
+    getAllUsers(@Headers('Authorization') token: string) {
+        console.log(token)
+        return this.usersServiceClient.send('getAllUsers', {
+            token
+        });
     }
 
     @Get(':id')

@@ -35,4 +35,10 @@ export class CreateCocktailDto {
     @Type(() => CreateCocktailStepDto)
     cocktailSteps: CreateCocktailStepDto[];
 
+
+    @ApiProperty()
+    @IsNotEmpty()
+    @IsString()
+    managerId: string;
+
 }
