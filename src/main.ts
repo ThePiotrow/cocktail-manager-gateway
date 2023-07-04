@@ -6,6 +6,9 @@ import { RpcExceptionFilter } from './exceptions/rpc-exception.filter';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   InitSwagger(app);
+  app.enableCors({
+    origin: [/localhost/, /http:\/\/localhost:5173/],
+  });
   // app.useGlobalFilters(new RpcExceptionFilter(app.get(HttpAdapterHost)));
   await app.listen(3000);
 }
