@@ -7,7 +7,13 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   InitSwagger(app);
   app.enableCors({
-    origin: [/localhost/, /http:\/\/localhost:5173/],
+    origin: [
+      /localhost/,
+      /http:\/\/localhost:5173/,
+      /http:\/\/localhost:3000/,
+      /http:\/\/localhost:5000/,
+      /http:\/\/localhost:7000/,
+    ],
   });
   // app.useGlobalFilters(new RpcExceptionFilter(app.get(HttpAdapterHost)));
   await app.listen(3000);

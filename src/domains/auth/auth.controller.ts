@@ -1,9 +1,11 @@
 import { Controller, Get, Inject, Post, Body, Headers } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
+import { ApiBearerAuth } from '@nestjs/swagger';
 import { LoginDto } from 'src/dto/users/login.dto';
 import { RegisterDto } from 'src/dto/users/register.dto';
 
 @Controller('auth')
+@ApiBearerAuth()
 export class AuthController {
     constructor(@Inject('AUTH_SERVICE') private readonly authService: ClientProxy) { }
 
