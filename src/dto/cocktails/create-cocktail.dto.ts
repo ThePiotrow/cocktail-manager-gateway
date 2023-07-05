@@ -1,6 +1,5 @@
 import { Type } from "class-transformer";
 import { IsNotEmpty, IsNumber, IsString, ValidateNested } from "class-validator";
-import { CreateCocktailIngredientDto } from "./create-cocktail_ingredient.dto";
 import { CreateCocktailStepDto } from "./create-cocktail_step.dto";
 import { ApiProperty } from "@nestjs/swagger";
 

@@ -5,11 +5,6 @@ export class CreateCocktailStepDto {
 
     @ApiProperty()
     @IsNotEmpty()
-    @IsUUID()
-    cocktailId: string;
-
-    @ApiProperty()
-    @IsNotEmpty()
     @IsNumber()
     position: number;
 
@@ -17,5 +12,4 @@ export class CreateCocktailStepDto {
     @IsNotEmpty()
     @IsString()
     description: string;
-
 }

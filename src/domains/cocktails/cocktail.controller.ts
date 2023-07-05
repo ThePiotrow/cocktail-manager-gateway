@@ -2,9 +2,10 @@ import { Body, Controller, Delete, Get, Inject, Param, Patch, Post } from '@nest
 import { ClientProxy } from '@nestjs/microservices';
 import { CreateCocktailDto } from 'src/dto/cocktails/create-cocktail.dto';
 import { UpdateCocktailDto } from 'src/dto/cocktails/update-cocktail.dto';
-import { CreateCocktailIngredientDto } from 'src/dto/cocktails/create-cocktail_ingredient.dto';
-import { UpdateCocktailIngredientDto } from 'src/dto/cocktails/update-cocktail_ingredient.dto';
 import { CreateCocktailStepDto } from 'src/dto/cocktails/create-cocktail_step.dto';
+import { UpdateCocktailStepDto } from 'src/dto/cocktails/update-cocktail_step.dto';
+import { CreateCocktailStepIngredientDto } from 'src/dto/cocktails/create-cocktail_step_ingredient.dto';
+import { UpdateCocktailStepIngredientDto } from 'src/dto/cocktails/update-cocktail_step_ingredient.dto';
 
 @Controller('cocktails')
 export class CocktailController {
@@ -37,11 +38,11 @@ export class CocktailController {
 
     @Post(':cocktailId/steps')
     createStep(@Param('cocktailId') cocktailId: string, @Body() createCocktailStepDto: CreateCocktailStepDto) {
-        return this.cocktailsProxy.send('createCocktailStep', { cocktailId, ...createCocktailStepDto });
+        return this.cocktailsProxy.send('createCocktailStep', { cocktail: { id: cocktailId }, ...createCocktailStepDto });
     }
 
     @Patch(':cocktailId/steps/:stepId')
-    updateStep(@Param('cocktailId') cocktailId: string, @Param('stepId') stepId: string, @Body() updateCocktailStepDto: UpdateCocktailIngredientDto) {
+    updateStep(@Param('cocktailId') cocktailId: string, @Param('stepId') stepId: string, @Body() updateCocktailStepDto: UpdateCocktailStepDto) {
         return this.cocktailsProxy.send('updateCocktailStep', { cocktailId, stepId, ...updateCocktailStepDto });
     }
 
@@ -51,17 +52,17 @@ export class CocktailController {
     }
 
     @Post(':cocktailId/steps/:stepId/ingredients')
-    createStepIngredient(@Param('cocktailId') cocktailId: string, @Param('stepId') stepId: string, @Body() createCocktailStepIngredientDto: CreateCocktailIngredientDto) {
-        return this.cocktailsProxy.send('createCocktailStepIngredient', { cocktailId, stepId, ...createCocktailStepIngredientDto });
+    createStepIngredient(@Param('cocktailId') cocktailId: string, @Param('stepId') stepId: string, @Body() createCocktailStepIngredientDto: CreateCocktailStepIngredientDto) {
+        return this.cocktailsProxy.send('createCocktailStepIngredient', { cocktailStep: { id: stepId }, ...createCocktailStepIngredientDto });
     }
 
     @Get(':cocktailId/steps/:stepId/ingredients')
     findAllStepIngredients(@Param('cocktailId') cocktailId: string, @Param('stepId') stepId: string) {
-        return this.cocktailsProxy.send('findAllCocktailStepIngredients', { cocktailId, stepId });
+        return this.cocktailsProxy.send('findAllCocktailStepIngredient', { cocktailStep: { id: stepId } });
     }
 
     @Patch(':cocktailId/steps/:stepId/ingredients/:ingredientId')
-    updateStepIngredient(@Param('cocktailId') cocktailId: string, @Param('stepId') stepId: string, @Param('ingredientId') ingredientId: string, @Body() updateCocktailStepIngredientDto: UpdateCocktailIngredientDto) {
+    updateStepIngredient(@Param('cocktailId') cocktailId: string, @Param('stepId') stepId: string, @Param('ingredientId') ingredientId: string, @Body() updateCocktailStepIngredientDto: UpdateCocktailStepIngredientDto) {
         return this.cocktailsProxy.send('updateCocktailStepIngredient', { cocktailId, stepId, ingredientId, ...updateCocktailStepIngredientDto });
     }
 
