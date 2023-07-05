@@ -1,7 +1,6 @@
 import { Type } from "class-transformer";
-import { IsNotEmpty, IsString, ValidateNested } from "class-validator";
+import { IsNotEmpty, IsNumber, IsString, ValidateNested } from "class-validator";
 import { CreateCocktailIngredientDto } from "./create-cocktail_ingredient.dto";
-import { CreateCocktailPriceDto } from "./create-cocktail_price.dto";
 import { CreateCocktailStepDto } from "./create-cocktail_step.dto";
 import { ApiProperty } from "@nestjs/swagger";
 
@@ -21,20 +20,19 @@ export class CreateCocktailDto {
     // image: string;
 
     @ApiProperty()
-    @ValidateNested({ each: true })
-    @Type(() => CreateCocktailPriceDto)
-    cocktailPrices: CreateCocktailPriceDto[];
+    @IsNotEmpty()
+    @IsNumber()
+    price: number;
 
     @ApiProperty()
-    @ValidateNested({ each: true })
-    @Type(() => CreateCocktailIngredientDto)
-    cocktailIngredients: CreateCocktailIngredientDto[];
+    @IsNotEmpty()
+    @IsNumber()
+    HHPrice: number;
 
     @ApiProperty()
     @ValidateNested({ each: true })
     @Type(() => CreateCocktailStepDto)
     cocktailSteps: CreateCocktailStepDto[];
-
 
     @ApiProperty()
     @IsNotEmpty()

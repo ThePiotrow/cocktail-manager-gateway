@@ -1,21 +1,29 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsNotEmpty, IsNumber, IsUUID } from "class-validator";
+import { IsBoolean, IsNotEmpty, IsNumber, IsString } from "class-validator";
 
 export class CreateIngredientDto {
 
     @ApiProperty()
     @IsNotEmpty()
-    @IsUUID()
-    cocktailId: string;
+    @IsString()
+    name: string;
 
     @ApiProperty()
     @IsNotEmpty()
-    @IsUUID()
-    ingredientId: string;
+    @IsString()
+    unit: string;
 
     @ApiProperty()
     @IsNotEmpty()
+    @IsBoolean()
+    allergen: boolean;
+
+    @ApiProperty()
     @IsNumber()
-    quantity: number;
+    stock: number;
+
+    @ApiProperty()
+    @IsNumber()
+    stockAlert: number;
 
 }
