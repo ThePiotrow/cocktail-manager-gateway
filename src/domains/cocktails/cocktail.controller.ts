@@ -6,6 +6,7 @@ import { CreateCocktailStepDto } from 'src/dto/cocktails/create-cocktail_step.dt
 import { UpdateCocktailStepDto } from 'src/dto/cocktails/update-cocktail_step.dto';
 import { CreateCocktailStepIngredientDto } from 'src/dto/cocktails/create-cocktail_step_ingredient.dto';
 import { UpdateCocktailStepIngredientDto } from 'src/dto/cocktails/update-cocktail_step_ingredient.dto';
+import { defaultIfEmpty, first } from 'rxjs';
 
 @Controller('cocktails')
 export class CocktailController {
@@ -26,9 +27,24 @@ export class CocktailController {
         return this.cocktailsProxy.send('findOneCocktail', id);
     }
 
+    @Get(':id/details')
+    findOneDetailled(@Param('id') id: string) {
+        return this.cocktailsProxy.send('findOneDetailledCocktail', id);
+    }
+
+    @Get(':id/ingredients')
+    findOneWithIngredients(@Param('id') id: string) {
+        return this.cocktailsProxy.send('findOneWithIngredientsCocktail', id);
+    }
+
     @Patch(':id')
     update(@Param('id') id: string, @Body() updateCocktailDto: UpdateCocktailDto) {
-        return this.cocktailsProxy.send('updateCocktail', { id, ...updateCocktailDto });
+        console.log(updateCocktailDto);
+        return this.cocktailsProxy.send('updateCocktail', { id, ...updateCocktailDto })
+            .pipe(
+                first(),
+                defaultIfEmpty('No data emitted from the stream')
+            );
     }
 
     @Delete(':id')

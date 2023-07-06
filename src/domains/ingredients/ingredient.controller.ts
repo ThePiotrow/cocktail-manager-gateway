@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Inject, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Inject, Param, Patch, Post } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { CreateIngredientDto } from 'src/dto/ingredients/create-ingredient.dto';
 import { UpdateIngredientDto } from 'src/dto/ingredients/update-ingredient.dto';
@@ -21,7 +21,7 @@ export class IngredientController {
         return this.cocktailsProxy.send('findOneIngredient', id);
     }
 
-    @Put(':id')
+    @Patch(':id')
     update(@Param('id') id: string, @Body() updateIngredientDto: UpdateIngredientDto) {
         return this.cocktailsProxy.send('updateIngredient', { id, ...updateIngredientDto });
     }
