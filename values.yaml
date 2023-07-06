@@ -1,0 +1,25 @@
+replicaCount: 1
+
+image:
+  repository: us-central1-docker.pkg.dev/cocktailmanager/cocktail-manager-auth/cocktail-manager-gateway
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: LoadBalancer
+  port: '3000'
+  targetPort: '3000'
+
+resources:
+  limits:
+    memory: '512Mi'
+    cpu: '0.5'
+  requests:
+    memory: '256Mi'
+    cpu: '0.1'
+  
+
+env:
+  port: '3000'
+  secretName: cocktail-manager-gateway-secret
+  DATABASE_URL: 'postgresql://postgres:k@T!gVWFdeaoF9Gbag62@cocktail-manager-db.default.svc.cluster.local:5432/cocktail-manager-db'

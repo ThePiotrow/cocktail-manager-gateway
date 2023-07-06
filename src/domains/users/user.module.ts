@@ -10,8 +10,8 @@ import { JwtModule } from '@nestjs/jwt';
                 name: 'AUTH_SERVICE',
                 transport: Transport.TCP,
                 options: {
-                    host: 'auth', //Docker service name
-                    port: 5000,
+                    host: process.env.AUTH_HOST, //Docker service name
+                    port: parseInt(process.env.AUTH_PORT),
                 },
             },
         ]),
